@@ -1,12 +1,22 @@
-﻿using System;
+﻿using Grpc.Core;
+using gRPCCaheService.Protos;
+using System.Threading.Tasks;
 
 namespace gRPCCacheService.Server
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var server = new Grpc.Core.Server
+            {
+                Ports = { { "localhost", 5000, ServerCredentials.Insecure } },
+                Services = { CacheService.BindService(new CacheServiceImpl()) }
+            };
+
+            server.Start();
+
+            await server.ShutdownTask;
         }
     }
 }

@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPCCacheService.Server", "gRPCCacheService.Server\gRPCCacheService.Server.csproj", "{6B3E2D1A-3A44-444F-A18B-B96DB6C6B552}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPCCacheService.Server", "gRPCCacheService.Server\gRPCCacheService.Server.csproj", "{6B3E2D1A-3A44-444F-A18B-B96DB6C6B552}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPCCacheService.Protos", "gRPCCacheService.Protos\gRPCCacheService.Protos.csproj", "{23787766-EE46-4299-8AD3-7FFAFF8F1EC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPCCacheService.Protos", "gRPCCacheService.Protos\gRPCCacheService.Protos.csproj", "{23787766-EE46-4299-8AD3-7FFAFF8F1EC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPCCacheService.Client", "gRPCCacheService.Client\gRPCCacheService.Client.csproj", "{98476A80-0F61-47FE-B32D-1CE1228097F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{23787766-EE46-4299-8AD3-7FFAFF8F1EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23787766-EE46-4299-8AD3-7FFAFF8F1EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23787766-EE46-4299-8AD3-7FFAFF8F1EC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98476A80-0F61-47FE-B32D-1CE1228097F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98476A80-0F61-47FE-B32D-1CE1228097F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98476A80-0F61-47FE-B32D-1CE1228097F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98476A80-0F61-47FE-B32D-1CE1228097F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
