@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using static System.Console;
 using static gRPCCaheService.Protos.CacheService;
 using gRPCCaheService.Protos;
+using Google.Protobuf;
+using System.Text;
 
 namespace gRPCCacheService.Client
 {
@@ -14,7 +16,7 @@ namespace gRPCCacheService.Client
             await channel.ConnectAsync();
 
             var client = new CacheServiceClient(channel);
-            var response = client.SetAsync(new SetRequest { Key = "ClientDemo", Value = "ClientDemo" });
+            var response = await client.SetAsync(new SetRequest { Key = "ClientDemo", Value = ByteString.CopyFrom("ClientDemo", Encoding.UTF8) });
 
             ReadLine();
 
