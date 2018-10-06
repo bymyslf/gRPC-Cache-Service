@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Google.Protobuf;
 using Grpc.Core;
 using Grpc.Core.Logging;
+using gRPCCacheService.Common.Extensions;
 using gRPCCaheService.Protos;
 using static gRPCCaheService.Protos.CacheService;
 
@@ -10,7 +11,7 @@ namespace gRPCCacheService.Server
 {
     public class CacheServiceImpl : CacheServiceBase
     {
-        private static readonly Task<GetResponse> _getCompleted = Task.FromResult((GetResponse)null);
+        private static readonly Task<GetResponse> _getCompleted = Task.FromResult(new GetResponse());
         private static readonly Task<SetResponse> _setCompleted = Task.FromResult(new SetResponse());
 
         public static readonly ConcurrentDictionary<string, byte[]> _cache = new ConcurrentDictionary<string, byte[]>();
@@ -30,13 +31,11 @@ namespace gRPCCacheService.Server
 
             if (value == null)
             {
-                _logger.Error($"[{correlationId}] - Could not get '{request.Key}'");
                 context.SetCorrelationId(correlationId);
                 context.Status = new Status(StatusCode.NotFound, $"Key '{request.Key}' not found");
                 return _getCompleted;
             }
 
-            _logger.Info($"[{correlationId}] - Get '{request.Key}'");
             context.SetCorrelationId(correlationId);
             return Task.FromResult(new GetResponse { Key = request.Key, Value = ByteString.CopyFrom(value) });
         }
@@ -47,11 +46,9 @@ namespace gRPCCacheService.Server
 
             if (!_cache.TryAdd(request.Key, request.Value.ToByteArray()))
             {
-                _logger.Error($"[{correlationId}] - Could not set '{request.Key}'");
                 context.Status = new Status(StatusCode.Internal, $"Could not set '{request.Key}'");
             }
 
-            _logger.Info($"[{correlationId}] - Set '{request.Key}'");
             context.SetCorrelationId(correlationId);
             return _setCompleted;
         }

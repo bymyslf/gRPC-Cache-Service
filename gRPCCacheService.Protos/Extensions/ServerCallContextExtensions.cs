@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace gRPCCacheService.Server
+namespace gRPCCacheService.Common.Extensions
 {
     public static class ServerCallContextExtensions
     {

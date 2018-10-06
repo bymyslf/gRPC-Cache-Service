@@ -7,6 +7,9 @@ using Grpc.Core.Logging;
 using static System.Console;
 using static gRPCCaheService.Protos.CacheService;
 using static Grpc.Core.GrpcEnvironment;
+using Grpc.Core.Interceptors;
+using gRPCCacheService.Common.Interceptors;
+using System;
 
 namespace gRPCCacheService.Client
 {
@@ -23,11 +26,12 @@ namespace gRPCCacheService.Client
 
             try
             {
+                var metadata = new Metadata { { "X-Correlation-ID", $"{Guid.NewGuid()}" } };
                 var response = await client.SetAsync(new SetRequest
                 {
                     Key = "ClientDemo",
                     Value = ByteString.CopyFrom("ClientDemo", Encoding.UTF8)
-                });
+                }, headers: metadata);
 
                 Logger.Info("Set key 'ClientDemo'");
             }
