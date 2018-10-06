@@ -28,6 +28,8 @@ namespace gRPCCacheService.Client
                     Key = "ClientDemo",
                     Value = ByteString.CopyFrom("ClientDemo", Encoding.UTF8)
                 });
+
+                Logger.Info("Set key 'ClientDemo'");
             }
             catch (RpcException ex)
             {
