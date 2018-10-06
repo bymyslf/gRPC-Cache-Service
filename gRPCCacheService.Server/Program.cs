@@ -1,6 +1,6 @@
-﻿using Grpc.Core;
-using Grpc.Core.Interceptors;
+﻿using Grpc.Core.Interceptors;
 using Grpc.Core.Logging;
+using gRPCCacheService.Common;
 using gRPCCacheService.Common.Interceptors;
 using gRPCCaheService.Protos;
 using System.Threading.Tasks;
@@ -16,7 +16,7 @@ namespace gRPCCacheService.Server
 
             var server = new Grpc.Core.Server
             {
-                Ports = { { "localhost", 5000, ServerCredentials.Insecure } },
+                Ports = { { "localhost", 5000, Credentials.CreateSslServerCredentials() } },
                 Services =
                 {
                     CacheService.BindService(new CacheServiceImpl(Logger))

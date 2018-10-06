@@ -7,9 +7,9 @@ using Grpc.Core.Logging;
 using static System.Console;
 using static gRPCCaheService.Protos.CacheService;
 using static Grpc.Core.GrpcEnvironment;
-using Grpc.Core.Interceptors;
-using gRPCCacheService.Common.Interceptors;
 using System;
+using gRPCCacheService.Common;
+using System.Collections.Generic;
 
 namespace gRPCCacheService.Client
 {
@@ -19,7 +19,13 @@ namespace gRPCCacheService.Client
         {
             SetLogger(new ConsoleLogger());
 
-            var channel = new Channel("localhost", 5000, ChannelCredentials.Insecure);
+            //Only for testing purposes
+            var options = new List<ChannelOption>
+            {
+                new ChannelOption(ChannelOptions.SslTargetNameOverride, "foo.test.google.fr")
+            };
+
+            var channel = new Channel("localhost", 5000, Credentials.CreateSslClientCredentials(), options);
             await channel.ConnectAsync();
 
             var client = new CacheServiceClient(channel);
