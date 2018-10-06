@@ -16,7 +16,11 @@ namespace gRPCCacheService.Client
             await channel.ConnectAsync();
 
             var client = new CacheServiceClient(channel);
-            var response = await client.SetAsync(new SetRequest { Key = "ClientDemo", Value = ByteString.CopyFrom("ClientDemo", Encoding.UTF8) });
+            var response = await client.SetAsync(new SetRequest
+            {
+                Key = "ClientDemo",
+                Value = ByteString.CopyFrom("ClientDemo", Encoding.UTF8)
+            });
 
             ReadLine();
 
