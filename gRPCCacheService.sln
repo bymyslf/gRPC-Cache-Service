@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPCCacheService.Server", "gRPCCacheService.Server\gRPCCacheService.Server.csproj", "{6B3E2D1A-3A44-444F-A18B-B96DB6C6B552}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPCCacheService.Common", "gRPCCacheService.Protos\gRPCCacheService.Common.csproj", "{23787766-EE46-4299-8AD3-7FFAFF8F1EC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPCCacheService.Common", "gRPCCacheService.Common\gRPCCacheService.Common.csproj", "{23787766-EE46-4299-8AD3-7FFAFF8F1EC7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPCCacheService.Client", "gRPCCacheService.Client\gRPCCacheService.Client.csproj", "{98476A80-0F61-47FE-B32D-1CE1228097F9}"
 EndProject
