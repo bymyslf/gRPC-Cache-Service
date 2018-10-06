@@ -1,10 +1,12 @@
 ﻿using Grpc.Core;
 using System.Threading.Tasks;
-using static System.Console;
-using static gRPCCaheService.Protos.CacheService;
 using gRPCCaheService.Protos;
 using Google.Protobuf;
 using System.Text;
+using Grpc.Core.Logging;
+using static System.Console;
+using static gRPCCaheService.Protos.CacheService;
+using static Grpc.Core.GrpcEnvironment;
 
 namespace gRPCCacheService.Client
 {
@@ -12,15 +14,25 @@ namespace gRPCCacheService.Client
     {
         private static async Task Main(string[] args)
         {
+            SetLogger(new ConsoleLogger());
+
             var channel = new Channel("localhost", 5000, ChannelCredentials.Insecure);
             await channel.ConnectAsync();
 
             var client = new CacheServiceClient(channel);
-            var response = await client.SetAsync(new SetRequest
+
+            try
             {
-                Key = "ClientDemo",
-                Value = ByteString.CopyFrom("ClientDemo", Encoding.UTF8)
-            });
+                var response = await client.SetAsync(new SetRequest
+                {
+                    Key = "ClientDemo",
+                    Value = ByteString.CopyFrom("ClientDemo", Encoding.UTF8)
+                });
+            }
+            catch (RpcException ex)
+            {
+                Logger.Error(ex, "Error setting key: 'ClientDemo'");
+            }
 
             ReadLine();
 

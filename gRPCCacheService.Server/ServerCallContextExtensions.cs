@@ -10,7 +10,8 @@ namespace gRPCCacheService.Server
 
         public static string GetCorrelationId(this ServerCallContext context)
         {
-            var authHeader = context.RequestHeaders.FirstOrDefault(h => h.Key.Equals(CorrelationIdHeader, StringComparison.OrdinalIgnoreCase));
+            var authHeader = context.RequestHeaders.FirstOrDefault(
+                h => h.Key.Equals(CorrelationIdHeader, StringComparison.OrdinalIgnoreCase));
             if (authHeader != null)
                 return authHeader.Value;
 

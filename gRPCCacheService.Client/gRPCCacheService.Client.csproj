@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\gRPCCacheService.Protos\gRPCCacheService.Protos.csproj" />
+    <ProjectReference Include="..\gRPCCacheService.Protos\gRPCCacheService.Common.csproj" />
   </ItemGroup>
 
 </Project>
