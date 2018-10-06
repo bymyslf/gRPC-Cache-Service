@@ -5,6 +5,16 @@ option csharp_namespace = "gRPCCaheService.Protos";
 service CacheService {
   rpc Set (SetRequest) returns (SetResponse);
   rpc Get (GetRequest) returns (GetResponse);
+  rpc GetByKeyPattern (GetByKeyPatternRequest) returns (stream GetByKeyPatternResponse);
+}
+
+message GetByKeyPatternRequest {
+  string pattern = 1;
+}
+
+message GetByKeyPatternResponse {
+  string key = 1;
+  bytes value = 2;
 }
 
 message SetRequest {

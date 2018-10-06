@@ -24,17 +24,24 @@ namespace gRPCCaheService.Protos {
     static ServiceReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg1zZXJ2aWNlLnByb3RvEg9nUlBDQ2FoZVNlcnZpY2UiKAoKU2V0UmVxdWVz",
-            "dBILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKAwiDQoLU2V0UmVzcG9uc2Ui",
-            "GQoKR2V0UmVxdWVzdBILCgNrZXkYASABKAkiKQoLR2V0UmVzcG9uc2USCwoD",
-            "a2V5GAEgASgJEg0KBXZhbHVlGAIgASgMMpIBCgxDYWNoZVNlcnZpY2USQAoD",
-            "U2V0EhsuZ1JQQ0NhaGVTZXJ2aWNlLlNldFJlcXVlc3QaHC5nUlBDQ2FoZVNl",
-            "cnZpY2UuU2V0UmVzcG9uc2USQAoDR2V0EhsuZ1JQQ0NhaGVTZXJ2aWNlLkdl",
-            "dFJlcXVlc3QaHC5nUlBDQ2FoZVNlcnZpY2UuR2V0UmVzcG9uc2VCGaoCFmdS",
-            "UENDYWhlU2VydmljZS5Qcm90b3NiBnByb3RvMw=="));
+            "Cg1zZXJ2aWNlLnByb3RvEg9nUlBDQ2FoZVNlcnZpY2UiKQoWR2V0QnlLZXlQ",
+            "YXR0ZXJuUmVxdWVzdBIPCgdwYXR0ZXJuGAEgASgJIjUKF0dldEJ5S2V5UGF0",
+            "dGVyblJlc3BvbnNlEgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoDCIoCgpT",
+            "ZXRSZXF1ZXN0EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoDCINCgtTZXRS",
+            "ZXNwb25zZSIZCgpHZXRSZXF1ZXN0EgsKA2tleRgBIAEoCSIpCgtHZXRSZXNw",
+            "b25zZRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKAwy+gEKDENhY2hlU2Vy",
+            "dmljZRJACgNTZXQSGy5nUlBDQ2FoZVNlcnZpY2UuU2V0UmVxdWVzdBocLmdS",
+            "UENDYWhlU2VydmljZS5TZXRSZXNwb25zZRJACgNHZXQSGy5nUlBDQ2FoZVNl",
+            "cnZpY2UuR2V0UmVxdWVzdBocLmdSUENDYWhlU2VydmljZS5HZXRSZXNwb25z",
+            "ZRJmCg9HZXRCeUtleVBhdHRlcm4SJy5nUlBDQ2FoZVNlcnZpY2UuR2V0QnlL",
+            "ZXlQYXR0ZXJuUmVxdWVzdBooLmdSUENDYWhlU2VydmljZS5HZXRCeUtleVBh",
+            "dHRlcm5SZXNwb25zZTABQhmqAhZnUlBDQ2FoZVNlcnZpY2UuUHJvdG9zYgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::gRPCCaheService.Protos.GetByKeyPatternRequest), global::gRPCCaheService.Protos.GetByKeyPatternRequest.Parser, new[]{ "Pattern" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::gRPCCaheService.Protos.GetByKeyPatternResponse), global::gRPCCaheService.Protos.GetByKeyPatternResponse.Parser, new[]{ "Key", "Value" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::gRPCCaheService.Protos.SetRequest), global::gRPCCaheService.Protos.SetRequest.Parser, new[]{ "Key", "Value" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::gRPCCaheService.Protos.SetResponse), global::gRPCCaheService.Protos.SetResponse.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::gRPCCaheService.Protos.GetRequest), global::gRPCCaheService.Protos.GetRequest.Parser, new[]{ "Key" }, null, null, null),
@@ -45,6 +52,292 @@ namespace gRPCCaheService.Protos {
 
   }
   #region Messages
+  public sealed partial class GetByKeyPatternRequest : pb::IMessage<GetByKeyPatternRequest> {
+    private static readonly pb::MessageParser<GetByKeyPatternRequest> _parser = new pb::MessageParser<GetByKeyPatternRequest>(() => new GetByKeyPatternRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GetByKeyPatternRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::gRPCCaheService.Protos.ServiceReflection.Descriptor.MessageTypes[0]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetByKeyPatternRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetByKeyPatternRequest(GetByKeyPatternRequest other) : this() {
+      pattern_ = other.pattern_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetByKeyPatternRequest Clone() {
+      return new GetByKeyPatternRequest(this);
+    }
+
+    /// <summary>Field number for the "pattern" field.</summary>
+    public const int PatternFieldNumber = 1;
+    private string pattern_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Pattern {
+      get { return pattern_; }
+      set {
+        pattern_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GetByKeyPatternRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GetByKeyPatternRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Pattern != other.Pattern) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Pattern.Length != 0) hash ^= Pattern.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Pattern.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Pattern);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Pattern.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Pattern);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GetByKeyPatternRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Pattern.Length != 0) {
+        Pattern = other.Pattern;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Pattern = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class GetByKeyPatternResponse : pb::IMessage<GetByKeyPatternResponse> {
+    private static readonly pb::MessageParser<GetByKeyPatternResponse> _parser = new pb::MessageParser<GetByKeyPatternResponse>(() => new GetByKeyPatternResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GetByKeyPatternResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::gRPCCaheService.Protos.ServiceReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetByKeyPatternResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetByKeyPatternResponse(GetByKeyPatternResponse other) : this() {
+      key_ = other.key_;
+      value_ = other.value_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetByKeyPatternResponse Clone() {
+      return new GetByKeyPatternResponse(this);
+    }
+
+    /// <summary>Field number for the "key" field.</summary>
+    public const int KeyFieldNumber = 1;
+    private string key_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Key {
+      get { return key_; }
+      set {
+        key_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "value" field.</summary>
+    public const int ValueFieldNumber = 2;
+    private pb::ByteString value_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pb::ByteString Value {
+      get { return value_; }
+      set {
+        value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GetByKeyPatternResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GetByKeyPatternResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Key != other.Key) return false;
+      if (Value != other.Value) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Key.Length != 0) hash ^= Key.GetHashCode();
+      if (Value.Length != 0) hash ^= Value.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Key.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Key);
+      }
+      if (Value.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteBytes(Value);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Key.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Key);
+      }
+      if (Value.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(Value);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GetByKeyPatternResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Key.Length != 0) {
+        Key = other.Key;
+      }
+      if (other.Value.Length != 0) {
+        Value = other.Value;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Key = input.ReadString();
+            break;
+          }
+          case 18: {
+            Value = input.ReadBytes();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class SetRequest : pb::IMessage<SetRequest> {
     private static readonly pb::MessageParser<SetRequest> _parser = new pb::MessageParser<SetRequest>(() => new SetRequest());
     private pb::UnknownFieldSet _unknownFields;
@@ -53,7 +346,7 @@ namespace gRPCCaheService.Protos {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::gRPCCaheService.Protos.ServiceReflection.Descriptor.MessageTypes[0]; }
+      get { return global::gRPCCaheService.Protos.ServiceReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -210,7 +503,7 @@ namespace gRPCCaheService.Protos {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::gRPCCaheService.Protos.ServiceReflection.Descriptor.MessageTypes[1]; }
+      get { return global::gRPCCaheService.Protos.ServiceReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -311,7 +604,7 @@ namespace gRPCCaheService.Protos {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::gRPCCaheService.Protos.ServiceReflection.Descriptor.MessageTypes[2]; }
+      get { return global::gRPCCaheService.Protos.ServiceReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -440,7 +733,7 @@ namespace gRPCCaheService.Protos {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::gRPCCaheService.Protos.ServiceReflection.Descriptor.MessageTypes[3]; }
+      get { return global::gRPCCaheService.Protos.ServiceReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

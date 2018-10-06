@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Linq;
 using System.Threading.Tasks;
 using Google.Protobuf;
 using Grpc.Core;
@@ -51,6 +52,26 @@ namespace gRPCCacheService.Server
 
             context.SetCorrelationId(correlationId);
             return _setCompleted;
+        }
+
+        public override async Task GetByKeyPattern(
+            GetByKeyPatternRequest request,
+            IServerStreamWriter<GetByKeyPatternResponse> responseStream,
+            ServerCallContext context)
+        {
+            var enumerator = _cache.Where(it => it.Key.StartsWith(request.Pattern)).GetEnumerator();
+
+            // Keep streaming the sequence until the call is cancelled.
+            // Use CancellationToken from ServerCallContext to detect the cancellation.
+            while (!context.CancellationToken.IsCancellationRequested && enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                await responseStream.WriteAsync(new GetByKeyPatternResponse
+                {
+                    Key = current.Key,
+                    Value = ByteString.CopyFrom(current.Value)
+                });
+            }
         }
     }
 }

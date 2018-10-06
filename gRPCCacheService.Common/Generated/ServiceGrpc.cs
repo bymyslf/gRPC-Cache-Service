@@ -16,6 +16,8 @@ namespace gRPCCaheService.Protos {
     static readonly grpc::Marshaller<global::gRPCCaheService.Protos.SetResponse> __Marshaller_gRPCCaheService_SetResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::gRPCCaheService.Protos.SetResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::gRPCCaheService.Protos.GetRequest> __Marshaller_gRPCCaheService_GetRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::gRPCCaheService.Protos.GetRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::gRPCCaheService.Protos.GetResponse> __Marshaller_gRPCCaheService_GetResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::gRPCCaheService.Protos.GetResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::gRPCCaheService.Protos.GetByKeyPatternRequest> __Marshaller_gRPCCaheService_GetByKeyPatternRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::gRPCCaheService.Protos.GetByKeyPatternRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::gRPCCaheService.Protos.GetByKeyPatternResponse> __Marshaller_gRPCCaheService_GetByKeyPatternResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::gRPCCaheService.Protos.GetByKeyPatternResponse.Parser.ParseFrom);
 
     static readonly grpc::Method<global::gRPCCaheService.Protos.SetRequest, global::gRPCCaheService.Protos.SetResponse> __Method_Set = new grpc::Method<global::gRPCCaheService.Protos.SetRequest, global::gRPCCaheService.Protos.SetResponse>(
         grpc::MethodType.Unary,
@@ -30,6 +32,13 @@ namespace gRPCCaheService.Protos {
         "Get",
         __Marshaller_gRPCCaheService_GetRequest,
         __Marshaller_gRPCCaheService_GetResponse);
+
+    static readonly grpc::Method<global::gRPCCaheService.Protos.GetByKeyPatternRequest, global::gRPCCaheService.Protos.GetByKeyPatternResponse> __Method_GetByKeyPattern = new grpc::Method<global::gRPCCaheService.Protos.GetByKeyPatternRequest, global::gRPCCaheService.Protos.GetByKeyPatternResponse>(
+        grpc::MethodType.ServerStreaming,
+        __ServiceName,
+        "GetByKeyPattern",
+        __Marshaller_gRPCCaheService_GetByKeyPatternRequest,
+        __Marshaller_gRPCCaheService_GetByKeyPatternResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -46,6 +55,11 @@ namespace gRPCCaheService.Protos {
       }
 
       public virtual global::System.Threading.Tasks.Task<global::gRPCCaheService.Protos.GetResponse> Get(global::gRPCCaheService.Protos.GetRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task GetByKeyPattern(global::gRPCCaheService.Protos.GetByKeyPatternRequest request, grpc::IServerStreamWriter<global::gRPCCaheService.Protos.GetByKeyPatternResponse> responseStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -107,6 +121,14 @@ namespace gRPCCaheService.Protos {
       {
         return CallInvoker.AsyncUnaryCall(__Method_Get, null, options, request);
       }
+      public virtual grpc::AsyncServerStreamingCall<global::gRPCCaheService.Protos.GetByKeyPatternResponse> GetByKeyPattern(global::gRPCCaheService.Protos.GetByKeyPatternRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetByKeyPattern(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncServerStreamingCall<global::gRPCCaheService.Protos.GetByKeyPatternResponse> GetByKeyPattern(global::gRPCCaheService.Protos.GetByKeyPatternRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncServerStreamingCall(__Method_GetByKeyPattern, null, options, request);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override CacheServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
@@ -120,7 +142,8 @@ namespace gRPCCaheService.Protos {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Set, serviceImpl.Set)
-          .AddMethod(__Method_Get, serviceImpl.Get).Build();
+          .AddMethod(__Method_Get, serviceImpl.Get)
+          .AddMethod(__Method_GetByKeyPattern, serviceImpl.GetByKeyPattern).Build();
     }
 
   }
