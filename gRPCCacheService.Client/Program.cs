@@ -13,6 +13,7 @@ using gRPCCacheService.Common.Interceptors;
 using gRPCCacheService.Common.Auth;
 using IdentityModel.Client;
 using System;
+using gRPCCacheService.Common;
 
 namespace gRPCCacheService.Client
 {
@@ -38,17 +39,58 @@ namespace gRPCCacheService.Client
 
             try
             {
-                var response = await client.SetAsync(new SetRequest
+                Logger.Info("Set key 'ClientDemo'");
+
+                await client.SetAsync(new SetRequest
                 {
                     Key = "ClientDemo",
                     Value = ByteString.CopyFrom("ClientDemo", Encoding.UTF8)
                 }, options: new CallOptions().WithDeadline(DateTime.UtcNow.AddSeconds(2)));
 
-                Logger.Info("Set key 'ClientDemo'");
+                Logger.Info("Get key 'ClientDemo'");
+
+                var response = await client.GetAsync(new GetRequest
+                {
+                    Key = "ClientDemo",
+                }, options: new CallOptions().WithDeadline(DateTime.UtcNow.AddSeconds(2)));
+
+                Logger.Info($"Got key 'ClientDemo' with value '{response.Value.ToStringUtf8()}'");
             }
             catch (RpcException ex)
             {
                 Logger.Error(ex, "Error setting key: 'ClientDemo'");
+            }
+
+            try
+            {
+                Logger.Info("Set key 'ClientDemoJson'");
+
+                await invoker.AsyncUnaryCall(
+                    Descriptors.SetAsJsonMethod,
+                    null,
+                    new CallOptions().WithDeadline(DateTime.UtcNow.AddSeconds(2)),
+                    new SetAsJsonRequest
+                    {
+                        Key = "ClientDemoJson",
+                        Value = Encoding.UTF8.GetBytes("ClientDemoJson")
+                    });
+
+                Logger.Info("Get key 'ClientDemoJson'");
+
+                var json = await invoker.AsyncUnaryCall(
+                    Descriptors.GetAsJsonMethod,
+                    null,
+                    new CallOptions().WithDeadline(DateTime.UtcNow.AddSeconds(2)),
+                    new GetAsJsonRequest
+                    {
+                        Key = "ClientDemoJson",
+                    });
+
+                Logger.Info($"Got key 'ClientDemoJson' with value '{Encoding.UTF8.GetString(json.Value)}'");
+            }
+            catch (RpcException ex)
+            {
+                Logger.Error(ex, "Error setting key: 'ClientDemoJson'");
             }
 
             ReadLine();

@@ -1,6 +1,7 @@
 ﻿using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Grpc.Core.Logging;
+using gRPCCacheService.Common;
 using gRPCCacheService.Common.Auth;
 using gRPCCacheService.Common.Interceptors;
 using gRPCCaheService.Protos;
@@ -17,15 +18,22 @@ namespace gRPCCacheService.Server
         {
             SetLogger(new ConsoleLogger());
 
+            var service = new CacheServiceImpl(Logger);
             var server = new Grpc.Core.Server
             {
                 Ports = { { "localhost", 5000, Credentials.CreateSslServerCredentials() } },
                 Services =
                 {
-                    CacheService.BindService(new CacheServiceImpl(Logger))
+                    CacheService.BindService(service)
+                        .Intercept(new CorrelationIdInterceptor())
+                        .Intercept(new JwtValidationInterceptor(Logger)),
+
+                    ServerServiceDefinition.CreateBuilder()
+                        .AddMethod(Descriptors.GetAsJsonMethod, service.GetAsJson)
+                        .AddMethod(Descriptors.SetAsJsonMethod, service.SetAsJson)
+                        .Build()
                         .Intercept(new CorrelationIdInterceptor())
                         .Intercept(new JwtValidationInterceptor(Logger))
-                        .Intercept(new LoggingInterceptor(Logger))
                 }
             };
 
