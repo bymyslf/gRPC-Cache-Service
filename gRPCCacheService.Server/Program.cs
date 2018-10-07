@@ -26,7 +26,8 @@ namespace gRPCCacheService.Server
                 {
                     CacheService.BindService(service)
                         .Intercept(new CorrelationIdInterceptor())
-                        .Intercept(new JwtValidationInterceptor(Logger)),
+                        .Intercept(new JwtValidationInterceptor(Logger))
+                        .Intercept(new LoggingInterceptor(Logger)),
 
                     ServerServiceDefinition.CreateBuilder()
                         .AddMethod(Descriptors.GetAsJsonMethod, service.GetAsJson)
@@ -34,6 +35,7 @@ namespace gRPCCacheService.Server
                         .Build()
                         .Intercept(new CorrelationIdInterceptor())
                         .Intercept(new JwtValidationInterceptor(Logger))
+                        .Intercept(new LoggingInterceptor(Logger))
                 }
             };
 
