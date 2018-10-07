@@ -21,6 +21,7 @@ namespace gRPCCacheService.Server
                 {
                     CacheService.BindService(new CacheServiceImpl(Logger))
                         .Intercept(new CorrelationIdInterceptor())
+                        .Intercept(new LoggingInterceptor(Logger))
                 }
             };
 
