@@ -26,31 +26,31 @@ namespace gRPCCacheService.Server
 
         public override Task<GetResponse> Get(GetRequest request, ServerCallContext context)
         {
-            var correlationId = context.GetCorrelationId();
+            //var correlationId = context.GetCorrelationId();
 
             _cache.TryGetValue(request.Key, out byte[] value);
 
             if (value == null)
             {
-                context.SetCorrelationId(correlationId);
+                //context.SetCorrelationId(correlationId);
                 context.Status = new Status(StatusCode.NotFound, $"Key '{request.Key}' not found");
                 return _getCompleted;
             }
 
-            context.SetCorrelationId(correlationId);
+            //context.SetCorrelationId(correlationId);
             return Task.FromResult(new GetResponse { Key = request.Key, Value = ByteString.CopyFrom(value) });
         }
 
         public override Task<SetResponse> Set(SetRequest request, ServerCallContext context)
         {
-            var correlationId = context.GetCorrelationId();
+            //var correlationId = context.GetCorrelationId();
 
             if (!_cache.TryAdd(request.Key, request.Value.ToByteArray()))
             {
                 context.Status = new Status(StatusCode.Internal, $"Could not set '{request.Key}'");
             }
 
-            context.SetCorrelationId(correlationId);
+            //context.SetCorrelationId(correlationId);
             return _setCompleted;
         }
 

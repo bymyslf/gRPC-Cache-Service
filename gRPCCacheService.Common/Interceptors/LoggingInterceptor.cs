@@ -16,6 +16,11 @@ namespace gRPCCacheService.Common.Interceptors
             _logger = logger;
         }
 
+        public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(TRequest request, ClientInterceptorContext<TRequest, TResponse> context, AsyncUnaryCallContinuation<TRequest, TResponse> continuation)
+        {
+            return base.AsyncUnaryCall(request, context, continuation);
+        }
+
         public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(
             TRequest request,
             ServerCallContext context,

@@ -7,9 +7,10 @@ using Grpc.Core.Logging;
 using static System.Console;
 using static gRPCCaheService.Protos.CacheService;
 using static Grpc.Core.GrpcEnvironment;
-using System;
 using gRPCCacheService.Common;
 using System.Collections.Generic;
+using Grpc.Core.Interceptors;
+using gRPCCacheService.Common.Interceptors;
 
 namespace gRPCCacheService.Client
 {
@@ -26,18 +27,18 @@ namespace gRPCCacheService.Client
             };
 
             var channel = new Channel("localhost", 5000, Credentials.CreateSslClientCredentials(), options);
+            var invoker = channel.Intercept(new CorrelationIdInterceptor());
             await channel.ConnectAsync();
 
-            var client = new CacheServiceClient(channel);
+            var client = new CacheServiceClient(invoker);
 
             try
             {
-                var metadata = new Metadata { { "X-Correlation-ID", $"{Guid.NewGuid()}" } };
                 var response = await client.SetAsync(new SetRequest
                 {
                     Key = "ClientDemo",
                     Value = ByteString.CopyFrom("ClientDemo", Encoding.UTF8)
-                }, headers: metadata);
+                });
 
                 Logger.Info("Set key 'ClientDemo'");
             }
