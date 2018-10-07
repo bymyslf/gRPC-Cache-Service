@@ -22,7 +22,10 @@ namespace gRPCCacheService.Common.Auth
             _logger = logger;
         }
 
-        public override async Task<TResponse> ClientStreamingServerHandler<TRequest, TResponse>(IAsyncStreamReader<TRequest> requestStream, ServerCallContext context, ClientStreamingServerMethod<TRequest, TResponse> continuation)
+        public override async Task<TResponse> ClientStreamingServerHandler<TRequest, TResponse>(
+            IAsyncStreamReader<TRequest> requestStream,
+            ServerCallContext context,
+            ClientStreamingServerMethod<TRequest, TResponse> continuation)
         {
             if (!(await IsJwtValid(context.GetAccessToken(), _logger)))
             {
@@ -33,7 +36,11 @@ namespace gRPCCacheService.Common.Auth
             return await continuation(requestStream, context);
         }
 
-        public override async Task ServerStreamingServerHandler<TRequest, TResponse>(TRequest request, IServerStreamWriter<TResponse> responseStream, ServerCallContext context, ServerStreamingServerMethod<TRequest, TResponse> continuation)
+        public override async Task ServerStreamingServerHandler<TRequest, TResponse>(
+            TRequest request,
+            IServerStreamWriter<TResponse> responseStream,
+            ServerCallContext context,
+            ServerStreamingServerMethod<TRequest, TResponse> continuation)
         {
             if (!(await IsJwtValid(context.GetAccessToken(), _logger)))
             {
@@ -44,7 +51,10 @@ namespace gRPCCacheService.Common.Auth
             await continuation(request, responseStream, context);
         }
 
-        public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
+        public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(
+            TRequest request,
+            ServerCallContext context,
+            UnaryServerMethod<TRequest, TResponse> continuation)
         {
             if (!(await IsJwtValid(context.GetAccessToken(), _logger)))
             {
@@ -55,7 +65,11 @@ namespace gRPCCacheService.Common.Auth
             return await continuation(request, context);
         }
 
-        public override async Task DuplexStreamingServerHandler<TRequest, TResponse>(IAsyncStreamReader<TRequest> requestStream, IServerStreamWriter<TResponse> responseStream, ServerCallContext context, DuplexStreamingServerMethod<TRequest, TResponse> continuation)
+        public override async Task DuplexStreamingServerHandler<TRequest, TResponse>(
+            IAsyncStreamReader<TRequest> requestStream,
+            IServerStreamWriter<TResponse> responseStream,
+            ServerCallContext context,
+            DuplexStreamingServerMethod<TRequest, TResponse> continuation)
         {
             if (!(await IsJwtValid(context.GetAccessToken(), _logger)))
             {

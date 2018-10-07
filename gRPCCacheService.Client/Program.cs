@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Grpc.Core.Interceptors;
 using gRPCCacheService.Common.Interceptors;
 using gRPCCacheService.Common.Auth;
+using IdentityModel.Client;
 
 namespace gRPCCacheService.Client
 {
@@ -26,7 +27,9 @@ namespace gRPCCacheService.Client
                 new ChannelOption(ChannelOptions.SslTargetNameOverride, "foo.test.google.fr")
             };
 
-            var channel = new Channel("localhost", 5000, Credentials.CreateSslClientCredentials(), options);
+            var token = await GetToken();
+            var credentials = ChannelCredentials.Create(Credentials.CreateSslClientCredentials(), IdSvrGrpcCredentials.ToCallCredentials(token));
+            var channel = new Channel("localhost", 5000, credentials, options);
             var invoker = channel.Intercept(new CorrelationIdInterceptor());
             await channel.ConnectAsync();
 
@@ -50,6 +53,27 @@ namespace gRPCCacheService.Client
             ReadLine();
 
             await channel.ShutdownAsync();
+        }
+
+        private static async Task<TokenResponse> GetToken()
+        {
+            var disco = await DiscoveryClient.GetAsync(IdentityConstants.Authority);
+            if (disco.IsError)
+            {
+                Logger.Error(disco.Error);
+                return null;
+            }
+
+            var tokenClient = new TokenClient(disco.TokenEndpoint, "client", "secret");
+            var tokenResponse = await tokenClient.RequestClientCredentialsAsync(IdentityConstants.Audience);
+
+            if (tokenResponse.IsError)
+            {
+                Logger.Error(tokenResponse.Error);
+                return null;
+            }
+
+            return tokenResponse;
         }
     }
 }
