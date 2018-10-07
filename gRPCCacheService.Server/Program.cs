@@ -1,6 +1,6 @@
 ﻿using Grpc.Core.Interceptors;
 using Grpc.Core.Logging;
-using gRPCCacheService.Common;
+using gRPCCacheService.Common.Auth;
 using gRPCCacheService.Common.Interceptors;
 using gRPCCaheService.Protos;
 using System.Threading.Tasks;

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace gRPCCacheService.Common
+namespace gRPCCacheService.Common.Auth
 {
     public static class Credentials
     {
