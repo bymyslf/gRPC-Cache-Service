@@ -12,6 +12,7 @@ using Grpc.Core.Interceptors;
 using gRPCCacheService.Common.Interceptors;
 using gRPCCacheService.Common.Auth;
 using IdentityModel.Client;
+using System;
 
 namespace gRPCCacheService.Client
 {
@@ -41,7 +42,7 @@ namespace gRPCCacheService.Client
                 {
                     Key = "ClientDemo",
                     Value = ByteString.CopyFrom("ClientDemo", Encoding.UTF8)
-                });
+                }, options: new CallOptions().WithDeadline(DateTime.UtcNow.AddSeconds(2)));
 
                 Logger.Info("Set key 'ClientDemo'");
             }
