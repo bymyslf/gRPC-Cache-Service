@@ -12,13 +12,14 @@ using static gRPCCaheService.Protos.CacheService;
 
 namespace gRPCCacheService.Server
 {
-    public class GrpcGatewayMiddleware
+    //Only for demo purposes! Too tightly coupled with the gRPC service.
+    public class GrpcRestGatewayMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly Channel _channel;
         private readonly string _path = $"/cache";
 
-        public GrpcGatewayMiddleware(RequestDelegate next, Channel channel)
+        public GrpcRestGatewayMiddleware(RequestDelegate next, Channel channel)
         {
             _next = next;
             _channel = channel;
@@ -53,19 +54,16 @@ namespace gRPCCacheService.Server
                         metadata.Add(header.Key, header.Value);
                     }
 
-                    await _channel.ConnectAsync();
-
                     var client = new CacheServiceClient(_channel);
 
                     object response;
                     if (HttpMethods.IsGet(httpContext.Request.Method))
                     {
-                        var requestObject = JsonConvert.DeserializeObject<SetRequest>(body);
-                        response = await client.SetAsync(requestObject, new CallOptions().WithHeaders(metadata));
+                        response = await client.GetAsync(new GetRequest { Key = key.ToString() }, new CallOptions().WithHeaders(metadata));
                     }
                     else
                     {
-                        response = await client.GetAsync(new GetRequest { Key = key.ToString() }, new CallOptions().WithHeaders(metadata));
+                        response = await client.SetAsync(JsonConvert.DeserializeObject<SetRequest>(body), new CallOptions().WithHeaders(metadata));
                     }
 
                     var responseBody = JsonConvert.SerializeObject(response, new[] { new Newtonsoft.Json.Converters.StringEnumConverter() });

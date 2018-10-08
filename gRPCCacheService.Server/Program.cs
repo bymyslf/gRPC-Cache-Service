@@ -54,7 +54,7 @@ namespace gRPCCacheService.Server
         {
             public void Configure(IApplicationBuilder app)
             {
-                app.UseMiddleware<GrpcGatewayMiddleware>(new Channel("localhost:5000", Credentials.CreateSslClientCredentials()));
+                app.UseMiddleware<GrpcRestGatewayMiddleware>(new Channel("localhost:5000", Credentials.CreateSslClientCredentials()));
             }
         }
     }
