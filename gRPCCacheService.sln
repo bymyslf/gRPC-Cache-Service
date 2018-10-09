@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPCCacheService.Common", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPCCacheService.Client", "gRPCCacheService.Client\gRPCCacheService.Client.csproj", "{98476A80-0F61-47FE-B32D-1CE1228097F9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{70DF17A6-9D68-4F71-918B-1745B1A91BF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6B3E2D1A-3A44-444F-A18B-B96DB6C6B552} = {70DF17A6-9D68-4F71-918B-1745B1A91BF7}
+		{23787766-EE46-4299-8AD3-7FFAFF8F1EC7} = {70DF17A6-9D68-4F71-918B-1745B1A91BF7}
+		{98476A80-0F61-47FE-B32D-1CE1228097F9} = {70DF17A6-9D68-4F71-918B-1745B1A91BF7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0AA55D7-DE47-4A08-B9C7-08E378AC47E6}
