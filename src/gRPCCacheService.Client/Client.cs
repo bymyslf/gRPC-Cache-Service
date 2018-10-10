@@ -35,6 +35,16 @@ namespace gRPCCacheService.Client
             var invoker = channel.Intercept(new CorrelationIdInterceptor());
             await channel.ConnectAsync();
 
+            await GeneratedClientExample(invoker);
+            await CustomSerializerExample(invoker);
+
+            ReadLine();
+
+            await channel.ShutdownAsync();
+        }
+
+        private static async Task GeneratedClientExample(CallInvoker invoker)
+        {
             var client = new CacheServiceClient(invoker);
 
             try
@@ -74,7 +84,10 @@ namespace gRPCCacheService.Client
             {
                 Logger.Error(ex, "Error setting key: 'ClientDemo'");
             }
+        }
 
+        private static async Task CustomSerializerExample(CallInvoker invoker)
+        {
             try
             {
                 Logger.Info("Set key 'ClientDemoJson'");
@@ -106,10 +119,6 @@ namespace gRPCCacheService.Client
             {
                 Logger.Error(ex, "Error setting key: 'ClientDemoJson'");
             }
-
-            ReadLine();
-
-            await channel.ShutdownAsync();
         }
 
         private static async Task<TokenResponse> GetToken()
