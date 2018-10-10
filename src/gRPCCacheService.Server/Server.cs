@@ -12,7 +12,7 @@ using static Grpc.Core.GrpcEnvironment;
 
 namespace gRPCCacheService.Server
 {
-    internal class Program
+    internal class Server
     {
         private static async Task Main(string[] args)
         {

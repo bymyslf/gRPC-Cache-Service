@@ -17,7 +17,7 @@ using gRPCCacheService.Common;
 
 namespace gRPCCacheService.Client
 {
-    internal class Program
+    internal class Client
     {
         private static async Task Main(string[] args)
         {
@@ -55,6 +55,20 @@ namespace gRPCCacheService.Client
                 }, options: new CallOptions().WithDeadline(DateTime.UtcNow.AddSeconds(2)));
 
                 Logger.Info($"Got key 'ClientDemo' with value '{response.Value.ToStringUtf8()}'");
+
+                Logger.Info("Get by key pattern 'Client'");
+
+                using (var stream = client.GetByKeyPattern(new GetByKeyPatternRequest
+                {
+                    Pattern = "Client",
+                }, options: new CallOptions().WithDeadline(DateTime.UtcNow.AddSeconds(5))))
+                {
+                    while (await stream.ResponseStream.MoveNext())
+                    {
+                        var current = stream.ResponseStream.Current;
+                        Logger.Info($"Got key '{current.Key}' with value '{current.Value.ToStringUtf8()}'");
+                    }
+                };
             }
             catch (RpcException ex)
             {
