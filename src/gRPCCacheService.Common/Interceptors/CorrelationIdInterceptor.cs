@@ -29,7 +29,7 @@ namespace gRPCCacheService.Common.Interceptors
             UnaryServerMethod<TRequest, TResponse> continuation)
         {
             var response = await continuation(request, context);
-            context.SetCorrelationId(context.GetCorrelationId());
+            await context.SetCorrelationId(context.GetCorrelationId());
             return response;
         }
     }

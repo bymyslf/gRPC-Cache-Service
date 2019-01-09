@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
@@ -16,6 +18,39 @@ namespace gRPCCacheService.Common.Interceptors
             _logger = logger;
         }
 
+        public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(
+            TRequest request, 
+            ClientInterceptorContext<TRequest, TResponse> context, 
+            AsyncUnaryCallContinuation<TRequest, TResponse> continuation)
+        {
+            _logger.Info($"Begin '{context.Method.Name}' request with '{request.ToString()}'");
+
+            var responseContinuation = continuation(request, context);
+            var responseAsync = responseContinuation.ResponseAsync.ContinueWith(responseTask =>
+            {
+                try
+                {
+                    var response = responseTask.Result;
+                    _logger.Info($"Request to '{context.Method.Name}' with '{request.ToString()}' succeeded!");
+                    return response;
+                }
+                catch (AggregateException ex)
+                {
+                    _logger.Error($"Request to '{context.Method.Name}' with '{request.ToString()}' failed!", ex.InnerException);
+                    throw ex.InnerException;
+                }
+            });
+
+            var responseHeaderAsync = responseContinuation.ResponseHeadersAsync.ContinueWith(headerTask =>
+            {
+                var responseHeader = headerTask.Result;
+                _logger.Info($"Request to '{request.ToString()}' response headers: '{string.Join(",", (responseHeader as IList<Metadata.Entry>).Select(entry => entry.ToString()))}'");
+                return responseHeader;
+            });
+
+            return new AsyncUnaryCall<TResponse>(responseAsync, responseHeaderAsync, responseContinuation.GetStatus, responseContinuation.GetTrailers, responseContinuation.Dispose);
+        }
+
         public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(
             TRequest request,
             ServerCallContext context,
@@ -24,15 +59,15 @@ namespace gRPCCacheService.Common.Interceptors
             var response = await base.UnaryServerHandler(request, context, continuation);
 
             var correlationId = context.GetCorrelationId();
-
+  
             if (context.Status.StatusCode.Equals(StatusCode.NotFound)
                 || context.Status.StatusCode.Equals(StatusCode.Internal))
             {
-                _logger.Error($"[{correlationId}] - Error request '{request.ToString()}'");
+                _logger.Error($"[{correlationId}] - Request to '{context.Method}' with '{request.ToString()}' succeeded!");
             }
             else
             {
-                _logger.Info($"[{correlationId}] - Request success '{request.ToString()}'");
+                _logger.Info($"[{correlationId}] - Request to '{context.Method}' with '{request.ToString()}' failed");
             }
 
             return response;

@@ -2,6 +2,7 @@
 using gRPCCacheService.Common.Auth;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace gRPCCacheService.Common.Extensions
 {
@@ -19,8 +20,12 @@ namespace gRPCCacheService.Common.Extensions
             return null;
         }
 
-        public static void SetCorrelationId(this ServerCallContext context, string value)
-            => context.ResponseTrailers.Add(CorrelationIdHeader, value);
+        public static Task SetCorrelationId(this ServerCallContext context, string value)
+        {
+            var metadata = new Metadata();
+            metadata.Add(CorrelationIdHeader, value);
+            return context.WriteResponseHeadersAsync(metadata);
+        }
 
         public static string GetAccessToken(this ServerCallContext context)
         {

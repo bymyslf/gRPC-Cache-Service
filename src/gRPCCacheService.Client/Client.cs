@@ -32,7 +32,7 @@ namespace gRPCCacheService.Client
             var token = await GetToken();
             var credentials = ChannelCredentials.Create(Credentials.CreateSslClientCredentials(), IdSvrGrpcCredentials.ToCallCredentials(token));
             var channel = new Channel("localhost", 5000, credentials, options);
-            var invoker = channel.Intercept(new CorrelationIdInterceptor());
+            var invoker = channel.Intercept(new CorrelationIdInterceptor()).Intercept(new LoggingInterceptor(Logger));
             await channel.ConnectAsync();
 
             await GeneratedClientExample(invoker);
@@ -49,22 +49,16 @@ namespace gRPCCacheService.Client
 
             try
             {
-                Logger.Info("Set key 'ClientDemo'");
-
                 await client.SetAsync(new SetRequest
                 {
                     Key = "ClientDemo",
                     Value = ByteString.CopyFrom("ClientDemo", Encoding.UTF8)
                 }, options: new CallOptions().WithDeadline(DateTime.UtcNow.AddSeconds(2)));
 
-                Logger.Info("Get key 'ClientDemo'");
-
                 var response = await client.GetAsync(new GetRequest
                 {
                     Key = "ClientDemo",
                 }, options: new CallOptions().WithDeadline(DateTime.UtcNow.AddSeconds(2)));
-
-                Logger.Info($"Got key 'ClientDemo' with value '{response.Value.ToStringUtf8()}'");
 
                 Logger.Info("Get by key pattern 'Client'");
 
@@ -90,8 +84,6 @@ namespace gRPCCacheService.Client
         {
             try
             {
-                Logger.Info("Set key 'ClientDemoJson'");
-
                 await invoker.AsyncUnaryCall(
                     Descriptors.SetAsJsonMethod,
                     null,
@@ -102,8 +94,6 @@ namespace gRPCCacheService.Client
                         Value = Encoding.UTF8.GetBytes("ClientDemoJson")
                     });
 
-                Logger.Info("Get key 'ClientDemoJson'");
-
                 var json = await invoker.AsyncUnaryCall(
                     Descriptors.GetAsJsonMethod,
                     null,
@@ -112,8 +102,6 @@ namespace gRPCCacheService.Client
                     {
                         Key = "ClientDemoJson",
                     });
-
-                Logger.Info($"Got key 'ClientDemoJson' with value '{Encoding.UTF8.GetString(json.Value)}'");
             }
             catch (RpcException ex)
             {
